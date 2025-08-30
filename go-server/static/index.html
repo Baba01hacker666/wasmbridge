@@ -1,1 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>multi-wasm-web demo</title>
+  </head>
+  <body>
+    <h1>multi-wasm-web</h1>
+    <p id="status">Loading wasm...</p>
 
+    <!-- example glue that expects pkg/ and a wasm file -->
+    <script type="module">
+      import init, { greet } from './pkg/package_name.js';
+      async function run() {
+        try {
+          await init('./pkg/package_name_bg.wasm');
+          document.getElementById('status').textContent = greet();
+        } catch (err) {
+          document.getElementById('status').textContent = 'Error loading wasm: ' + err;
+          console.error(err);
+        }
+      }
+      run();
+    </script>
+  </body>
+</html>
